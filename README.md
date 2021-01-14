@@ -9,3 +9,4 @@ Note Taking Program
 
 What I Learned
 --------------
+* Implemented the ```linkedlist``` data structure
