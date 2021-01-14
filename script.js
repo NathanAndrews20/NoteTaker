@@ -1,42 +1,56 @@
-let listLength = 0;
+import LinkedList from "./LinkedList.js";
+
+const noteList = new LinkedList();
 
 document.getElementById('save-button').addEventListener('click', (event) => {
-
-    const list = document.getElementById("note-list");
     
-    let listItem = document.createElement('li');
-    listItem.id = 'li'+listLength;
+    const listItem = document.createElement('li');
     
     //Creating noteDiv
-    let noteText = document.getElementById('textarea').value;
-    let noteDiv = document.createElement('div');
+    const noteText = document.getElementById('textarea').value;
+    const noteDiv = document.createElement('div');
     noteDiv.className = 'noteDiv';
     noteDiv.innerHTML = noteText;
 
     //Creating dateDiv
-    let dateDiv = document.createElement('div');
+    const dateDiv = document.createElement('div');
     dateDiv.className = 'date-div';
-    let date = new Date;
-    let dateString = date.toDateString();
+    const date = new Date;
+    const dateString = date.toDateString();
     dateDiv.innerHTML = dateString;
     
     //Creating completedDiv
-    let completedDiv = document.createElement('div');
+    const completedDiv = document.createElement('div');
     completedDiv.className = 'completed-div';
-    let completedButton = document.createElement('button');
+    const completedButton = document.createElement('button');
     completedButton.innerHTML = 'Mark Complete';
     completedDiv.append(completedButton);
 
     //Creating deleteDiv
-    let deleteDiv = document.createElement('div');
+    const deleteDiv = document.createElement('div');
     deleteDiv.className = 'delete-div';
-    let deleteButton = document.createElement('button');
+    const deleteButton = document.createElement('button');
     deleteButton.innerHTML = 'Delete';
     deleteDiv.append(deleteButton);
     
     //Appending Items
     listItem.append(noteDiv,dateDiv,completedDiv,deleteDiv);
-    list.append(listItem);
+    noteList.add(listItem);
+    renderList();
 });
 
-document.getElementById
+function renderList(){
+    const listDomElement = document.getElementById('note-list');
+    
+    removeAllChildNodes(listDomElement);
+
+    noteList.forEach(elem =>{
+        listDomElement.append(elem);
+    });
+}
+
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
