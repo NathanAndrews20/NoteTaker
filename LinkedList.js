@@ -40,10 +40,10 @@ class LinkedList{
         return size;
     }
 
-    printList(){
+    forEach(callback){
         let cur = this.head;
-        while(cur!==null){
-            console.log(cur.data);
+        while(cur!=null){
+            callback(cur.data);
             cur = cur.next;
         }
     }
@@ -55,7 +55,5 @@ class Node{
         this.next = null;
     }
 }
-
-let myList = new LinkedList();
 
 export default LinkedList
