@@ -5,11 +5,12 @@ const noteList = new LinkedList();
 document.getElementById('save-button').addEventListener('click', (event) => {
     
     const listItem = document.createElement('li');
+    listItem.setAttribute('index',`${noteList.size()}`)
     
     //Creating noteDiv
     const noteText = document.getElementById('textarea').value;
     const noteDiv = document.createElement('div');
-    noteDiv.className = 'noteDiv';
+    noteDiv.className = 'note-div';
     noteDiv.innerHTML = noteText;
 
     //Creating dateDiv
@@ -23,6 +24,8 @@ document.getElementById('save-button').addEventListener('click', (event) => {
     const completedDiv = document.createElement('div');
     completedDiv.className = 'completed-div';
     const completedButton = document.createElement('button');
+    completedButton.className = 'completed-button';
+    completedButton.setAttribute('index',`${noteList.size()}`);
     completedButton.innerHTML = 'Mark Complete';
     completedDiv.append(completedButton);
 
@@ -30,11 +33,14 @@ document.getElementById('save-button').addEventListener('click', (event) => {
     const deleteDiv = document.createElement('div');
     deleteDiv.className = 'delete-div';
     const deleteButton = document.createElement('button');
+    deleteButton.className = 'delete-button';
+    deleteButton.setAttribute('index',`${noteList.size()}`);
     deleteButton.innerHTML = 'Delete';
     deleteDiv.append(deleteButton);
     
     //Appending Items
     listItem.append(noteDiv,dateDiv,completedDiv,deleteDiv);
+    listItem.id = 'list-item';
     noteList.add(listItem);
     renderList();
 });
@@ -53,4 +59,28 @@ function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
+}
+
+document.getElementById('note-list').addEventListener('click', event => {
+    const selection = event.target;
+    if(selection.className === 'delete-button'){
+        const index = parseInt(selection.getAttribute('index'));
+        noteList.remove(index);
+        resetIndicies();
+        renderList();
+    }
+});
+
+function resetIndicies(){
+    const listDomElement = document.getElementById('note-list');
+
+    let index = 0;
+    
+    noteList.forEach(elem =>{
+        elem.setAttribute('index',`${index}`);
+        elem.children[2].children[0].setAttribute('index',`${index}`);
+        elem.children[3].children[0].setAttribute('index',`${index}`);
+        index++;
+        listDomElement.append(elem);
+    });
 }

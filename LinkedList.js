@@ -15,13 +15,30 @@ class LinkedList{
         cur.next = new Node(data);
     }
 
+    get(index){
+        try {
+            let cur = this.head;
+            for(let i=0; i<index; i++){
+                cur = cur.next;
+            }
+            return cur.data;
+        } catch (error) {
+            return -1;
+        }
+    }
+
     isEmpty(){
         return this.head === null;
     }
 
     remove(index = this.size()){
-        let cur = this.head;
         let removedData;
+        if(index===0){
+            removedData = this.head.data;
+            this.head = this.head.next;
+            return removedData;
+        }
+        let cur = this.head;
         for(let i = 0; i<index-1; i++){
             cur = cur.next;
         }
@@ -56,4 +73,4 @@ class Node{
     }
 }
 
-export default LinkedList
+export default LinkedList;
