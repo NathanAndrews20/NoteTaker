@@ -25,7 +25,8 @@ document.getElementById('list').addEventListener('click', event => {
     const selection = event.target;
     if(selection.className === 'delete-button action-button'){
         const index = parseInt(selection.getAttribute('index'));
-        liLinkedList.remove(index);
+        localStorage.removeItem(index);
+        const deletedListItem = liLinkedList.remove(index);
         resetIndicies();
         renderList();
     }
@@ -77,6 +78,8 @@ function getNote(listItem){
 }
 
 function loadListItemsFromStorage(){
+    if(localStorage.length === 0) { return; }
+
     for(let index = 0; index<localStorage.length; index++){
         let dateString, noteString;
         [dateString,noteString] = localStorage.getItem(index).split(",");
@@ -104,14 +107,16 @@ function removeAllChildNodes(parent) {
 
 function resetIndicies(){
     const listDomElement = document.getElementById('list');
+    localStorage.clear();
 
     let index = 0;
     
-    liLinkedList.forEach(elem =>{
-        elem.setAttribute('index',`${index}`);
-        elem.children[2].children[0].setAttribute('index',`${index}`);
-        elem.children[2].children[1].setAttribute('index',`${index}`);
+    liLinkedList.forEach(listItem =>{
+        listItem.setAttribute('index',`${index}`);
+        listItem.children[2].children[0].setAttribute('index',`${index}`);
+        listItem.children[2].children[1].setAttribute('index',`${index}`);
+        const listItemData = `${getDate(listItem)},${getNote(listItem)}`;
+        localStorage.setItem(index,listItemData);
         index++;
-        listDomElement.append(elem);
     });
 }
