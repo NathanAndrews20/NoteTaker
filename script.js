@@ -6,19 +6,36 @@ document.getElementById('add-button').addEventListener('click', (event) => {
     
     if(document.getElementById('textarea').value === '') { return; }
 
+    const dateObject = new Date();
+    const dateString = dateObject.toDateString();
+    const noteString = document.getElementById('textarea').value;
+
+    const listItem = createListItem(dateString,noteString);
+    liLinkedList.add(listItem);
+    renderList();
+});
+
+document.getElementById('list').addEventListener('click', event => {
+    const selection = event.target;
+    if(selection.className === 'delete-button action-button'){
+        const index = parseInt(selection.getAttribute('index'));
+        liLinkedList.remove(index);
+        resetIndicies();
+        renderList();
+    }
+});
+
+function createListItem(dateString, noteString){
     const listItem = document.createElement('li');
     listItem.className = 'list-item';
     listItem.setAttribute('index',`${liLinkedList.size()}`)
     
-    const noteText = document.getElementById('textarea').value;
     const notePElement = document.createElement('p');
     notePElement.className = 'note';
-    notePElement.innerHTML = noteText;
+    notePElement.innerHTML = noteString;
 
     const datePElement = document.createElement('p');
     datePElement.className = 'date';
-    const dateObject = new Date;
-    const dateString = dateObject.toDateString();
     datePElement.innerHTML = dateString;
   
     const completeButton = document.createElement('button');
@@ -37,19 +54,13 @@ document.getElementById('add-button').addEventListener('click', (event) => {
     
     listItem.append(datePElement,notePElement,actionButtonsContainerDiv);
     listItem.id = 'list-item';
-    liLinkedList.add(listItem);
-    renderList();
-});
+    
+    return listItem;
+}
 
-document.getElementById('list').addEventListener('click', event => {
-    const selection = event.target;
-    if(selection.className === 'delete-button'){
-        const index = parseInt(selection.getAttribute('index'));
-        liLinkedList.remove(index);
-        resetIndicies();
-        renderList();
-    }
-});
+function getIndex(listItem){
+    return listItem.getAttribute('index');
+}
 
 function renderList(){
     const listDomElement = document.getElementById('list');
