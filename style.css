@@ -1,0 +1,81 @@
+html{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#note-list-container{
+    justify-content: center;
+}
+
+#list-labels-container{
+    display: flex;
+    margin-bottom: 0px;
+}
+
+#date-label{
+    width: 90px;
+    margin-right: 10px;
+    margin-bottom: inherit;
+    border-bottom: 2px rgb(206, 206, 206) solid;
+    font-weight: bold;
+}
+
+#note-label{
+    width: 100%;
+    margin-bottom: inherit;
+    border-bottom: 2px rgb(206, 206, 206) solid;
+    font-weight: bold;
+}
+
+#actions-label{
+    width: 100px;
+    margin-bottom: inherit;
+    margin-left: 10px;
+    border-bottom: 2px rgb(206, 206, 206) solid;
+    font-weight: bold;
+}
+
+#note-list{
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.list-item{
+    min-height: 75px;
+    display: flex;
+    margin: 10px 0px 0px 0px;
+    padding-bottom: 10px;
+    border-bottom: 2px grey solid;
+}
+
+.date-div{
+    display: flex;
+
+    width: 90px;
+    margin-right: 10px;
+
+    text-align: left;
+}
+
+.note-div{
+    width: 100%;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.button-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+    width: 100px;
+}
+
+.completed-button{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.delete-button{
+    width: 100%
+}

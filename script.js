@@ -4,7 +4,10 @@ const noteList = new LinkedList();
 
 document.getElementById('save-button').addEventListener('click', (event) => {
     
+    if(document.getElementById('textarea').value === '') { return; }
+
     const listItem = document.createElement('li');
+    listItem.className = 'list-item';
     listItem.setAttribute('index',`${noteList.size()}`)
     
     //Creating noteDiv
@@ -26,7 +29,7 @@ document.getElementById('save-button').addEventListener('click', (event) => {
     const completedButton = document.createElement('button');
     completedButton.className = 'completed-button';
     completedButton.setAttribute('index',`${noteList.size()}`);
-    completedButton.innerHTML = 'Mark Complete';
+    completedButton.innerHTML = 'Complete';
     completedDiv.append(completedButton);
 
     //Creating deleteDiv
@@ -37,9 +40,14 @@ document.getElementById('save-button').addEventListener('click', (event) => {
     deleteButton.setAttribute('index',`${noteList.size()}`);
     deleteButton.innerHTML = 'Delete';
     deleteDiv.append(deleteButton);
+
+    //Creating buttonContianerDiv
+    const buttonContainerDiv = document.createElement('div');
+    buttonContainerDiv.className = 'button-container';
+    buttonContainerDiv.append(completedDiv,deleteDiv);
     
     //Appending Items
-    listItem.append(noteDiv,dateDiv,completedDiv,deleteDiv);
+    listItem.append(dateDiv,noteDiv,buttonContainerDiv);
     listItem.id = 'list-item';
     noteList.add(listItem);
     renderList();
@@ -78,8 +86,9 @@ function resetIndicies(){
     
     noteList.forEach(elem =>{
         elem.setAttribute('index',`${index}`);
-        elem.children[2].children[0].setAttribute('index',`${index}`);
-        elem.children[3].children[0].setAttribute('index',`${index}`);
+        console.log(elem.children[2].children);
+        elem.children[2].children[0].children[0].setAttribute('index',`${index}`);
+        elem.children[2].children[1].children[0].setAttribute('index',`${index}`);
         index++;
         listDomElement.append(elem);
     });

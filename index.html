@@ -13,7 +13,23 @@
             <textarea name="textarea" id="textarea" cols="30" rows="10"></textarea>
             <button id="save-button" index="1">Save</button>
             <div id="note-list-container">
+                <div id="list-labels-container">
+                    <p id="date-label">Date</p>
+                    <p id="note-label">Note</p>
+                    <p id="actions-label">Actions</p>
+                </div>
                 <ul id="note-list">
+                    <li index="0" class="list-item">
+                        <div class="date-div">Thu Jan 14 2021</div>
+                        <div class="note-div">Test Text</div>
+                        <div class="button-container">
+                            <div class="completed-div">
+                                <button class="completed-button" index="0">Complete</button>
+                            </div><div class="delete-div">
+                                <button class="delete-button" index="0">Delete</button>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
