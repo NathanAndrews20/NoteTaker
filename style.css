@@ -2,11 +2,12 @@ html{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#add-note-container{
-    background-color:  rgb(235, 235, 235);
+#input-container{
     display: flex;
     flex-direction: column;
-    padding: 10px 50px 10px 50px
+    padding: 10px 50px 10px 50px;
+
+    background-color:  rgb(235, 235, 235);
 }
 
 #heading{
@@ -16,105 +17,105 @@ html{
 #textarea{
     height: 50px;
     width: 100%;
-    border: black 2px solid;
+
+    border: 2px black solid;
 }
 
-#save-button{
-    width: fit-content;
-    background-color: rgb(125, 255, 125);
-    border-radius: 10px;
-    width: 80px;
+#add-button{
     height: 30px;
-    font-weight: bolder;
+    width: 80px;
     border: none;
     margin: 10px 0px 0px 0px;
-}
-
-#note-list-container{
-    justify-content: center;
+    border-radius: 10px;
+    
+    background-color: rgb(125, 255, 125);
+    
+    font-weight: bolder;
 }
 
 #list-labels-container{
     display: flex;
+
     margin-bottom: 0px;
 }
 
-#date-label{
+.section-label{
+    border-bottom: 3px rgb(206, 206, 206) solid;
+    margin-bottom: inherit;
+    
+    font-weight: bold;
+}
+
+#date-section-label{
     width: 90px;
     margin-right: 10px;
-    margin-bottom: inherit;
-    border-bottom: 2px rgb(206, 206, 206) solid;
-    font-weight: bold;
 }
 
-#note-label{
+#note-section-label{
     width: 100%;
-    margin-bottom: inherit;
-    border-bottom: 2px rgb(206, 206, 206) solid;
-    font-weight: bold;
 }
 
-#actions-label{
+#actions-section-label{
     width: 100px;
-    margin-bottom: inherit;
     margin-left: 10px;
-    border-bottom: 2px rgb(206, 206, 206) solid;
-    font-weight: bold;
 }
 
-#note-list{
-    list-style-type: none;
+#list{
     padding: 0px;
     margin: 0px;
+
+    list-style-type: none;
 }
 
 .list-item{
-    min-height: 50px;
     display: flex;
-    margin: 10px 0px 0px 0px;
+    min-height: 50px;
     padding-bottom: 10px;
+    margin: 10px 0px 0px 0px;
     border-bottom: 2px rgb(235, 235, 235) solid;
 }
 
-.date-div{
+.date{
     display: flex;
-
     width: 90px;
-    margin-right: 10px;
+    margin: 0px 10px 0px 0px;
 
     text-align: left;
 }
 
-.note-div{
+.note{
     width: 100%;
+    margin: 0;
+    
     word-wrap: break-word;
     overflow: hidden;
     white-space: pre-wrap;
 }
 
-.button-container{
+.action-buttons-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 10px;
     width: 100px;
+
+    margin-left: 10px;
 }
 
-.completed-button{
-    width: 100%;
+.action-button{
     height: 30px;
-    margin-bottom: 3px;
-    font-weight: bold;
-    background-color: rgb(125, 125, 255);
-    border-radius: 10px;
+    width: 100%;
     border: none;
+    border-radius: 10px;
+    
+    font-weight: bold;
+}
+
+.complete-button{
+    margin-bottom: 3px;
+    
+    background-color: rgb(125, 125, 255);
 }
 
 .delete-button{
-    width: 100%;
-    height: 30px;
-    font-weight: bold;
     background-color: rgb(255, 125, 125);
-    border-radius: 10px;
-    border: none;
 }

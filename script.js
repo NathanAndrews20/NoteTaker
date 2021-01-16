@@ -1,64 +1,62 @@
 import LinkedList from "./LinkedList.js";
 
-const noteList = new LinkedList();
+const liLinkedList = new LinkedList();
 
-document.getElementById('save-button').addEventListener('click', (event) => {
+document.getElementById('add-button').addEventListener('click', (event) => {
     
     if(document.getElementById('textarea').value === '') { return; }
 
     const listItem = document.createElement('li');
     listItem.className = 'list-item';
-    listItem.setAttribute('index',`${noteList.size()}`)
+    listItem.setAttribute('index',`${liLinkedList.size()}`)
     
-    //Creating noteDiv
     const noteText = document.getElementById('textarea').value;
-    const noteDiv = document.createElement('div');
-    noteDiv.className = 'note-div';
-    noteDiv.innerHTML = noteText;
+    const notePElement = document.createElement('p');
+    notePElement.className = 'note';
+    notePElement.innerHTML = noteText;
 
-    //Creating dateDiv
-    const dateDiv = document.createElement('div');
-    dateDiv.className = 'date-div';
-    const date = new Date;
-    const dateString = date.toDateString();
-    dateDiv.innerHTML = dateString;
-    
-    //Creating completedDiv
-    const completedDiv = document.createElement('div');
-    completedDiv.className = 'completed-div';
-    const completedButton = document.createElement('button');
-    completedButton.className = 'completed-button';
-    completedButton.setAttribute('index',`${noteList.size()}`);
-    completedButton.innerHTML = 'Complete';
-    completedDiv.append(completedButton);
+    const datePElement = document.createElement('p');
+    datePElement.className = 'date';
+    const dateObject = new Date;
+    const dateString = dateObject.toDateString();
+    datePElement.innerHTML = dateString;
+  
+    const completeButton = document.createElement('button');
+    completeButton.className = 'complete-button action-button';
+    completeButton.setAttribute('index',`${liLinkedList.size()}`);
+    completeButton.innerHTML = 'Complete';
 
-    //Creating deleteDiv
-    const deleteDiv = document.createElement('div');
-    deleteDiv.className = 'delete-div';
     const deleteButton = document.createElement('button');
-    deleteButton.className = 'delete-button';
-    deleteButton.setAttribute('index',`${noteList.size()}`);
+    deleteButton.className = 'delete-button action-button';
+    deleteButton.setAttribute('index',`${liLinkedList.size()}`);
     deleteButton.innerHTML = 'Delete';
-    deleteDiv.append(deleteButton);
 
-    //Creating buttonContianerDiv
-    const buttonContainerDiv = document.createElement('div');
-    buttonContainerDiv.className = 'button-container';
-    buttonContainerDiv.append(completedDiv,deleteDiv);
+    const actionButtonsContainerDiv = document.createElement('div');
+    actionButtonsContainerDiv.className = 'action-buttons-container';
+    actionButtonsContainerDiv.append(completeButton,deleteButton);
     
-    //Appending Items
-    listItem.append(dateDiv,noteDiv,buttonContainerDiv);
+    listItem.append(datePElement,notePElement,actionButtonsContainerDiv);
     listItem.id = 'list-item';
-    noteList.add(listItem);
+    liLinkedList.add(listItem);
     renderList();
 });
 
+document.getElementById('list').addEventListener('click', event => {
+    const selection = event.target;
+    if(selection.className === 'delete-button'){
+        const index = parseInt(selection.getAttribute('index'));
+        liLinkedList.remove(index);
+        resetIndicies();
+        renderList();
+    }
+});
+
 function renderList(){
-    const listDomElement = document.getElementById('note-list');
+    const listDomElement = document.getElementById('list');
     
     removeAllChildNodes(listDomElement);
 
-    noteList.forEach(elem =>{
+    liLinkedList.forEach(elem =>{
         listDomElement.append(elem);
     });
 }
@@ -69,26 +67,15 @@ function removeAllChildNodes(parent) {
     }
 }
 
-document.getElementById('note-list').addEventListener('click', event => {
-    const selection = event.target;
-    if(selection.className === 'delete-button'){
-        const index = parseInt(selection.getAttribute('index'));
-        noteList.remove(index);
-        resetIndicies();
-        renderList();
-    }
-});
-
 function resetIndicies(){
-    const listDomElement = document.getElementById('note-list');
+    const listDomElement = document.getElementById('list');
 
     let index = 0;
     
-    noteList.forEach(elem =>{
+    liLinkedList.forEach(elem =>{
         elem.setAttribute('index',`${index}`);
-        console.log(elem.children[2].children);
-        elem.children[2].children[0].children[0].setAttribute('index',`${index}`);
-        elem.children[2].children[1].children[0].setAttribute('index',`${index}`);
+        elem.children[2].children[0].setAttribute('index',`${index}`);
+        elem.children[2].children[1].setAttribute('index',`${index}`);
         index++;
         listDomElement.append(elem);
     });

@@ -8,27 +8,25 @@
         <script type="module" src="./script.js"></script>
     </head>
     <body>
-        <div id="note-taker-container">
-            <div id="add-note-container">
+        <div id="app-container">
+            <div id="input-container">
                 <h2 id="heading">Note Taker</h2>
-                <textarea name="textarea" id="textarea" cols="30" rows="10"></textarea>
-                <button id="save-button" index="1">Add Note</button>
+                <textarea id="textarea"></textarea>
+                <button id="add-button">Add Note</button>
             </div>
-            <div id="note-list-container">
+            <div id="list-container">
                 <div id="list-labels-container">
-                    <p id="date-label">Date</p>
-                    <p id="note-label">Note</p>
-                    <p id="actions-label">Actions</p>
+                    <p id="date-section-label" class="section-label">Date</p>
+                    <p id="note-section-label" class="section-label">Note</p>
+                    <p id="actions-section-label" class="section-label">Actions</p>
                 </div>
-                <ul id="note-list">
+                <ul id="list">
                     <li index="0" class="list-item">
-                        <div class="date-div">Fri Jan 15 2021</div>
-                        <div class="note-div">Test Text</div>
-                        <div class="button-container">
-                            <div class="completed-div">
-                                <button class="completed-button" index="0">Complete</button>
-                            </div><div class="delete-div">
-                                <button class="delete-button" index="0">Delete</button>
+                        <p class="date">Fri Jan 15 2021</p>
+                        <p class="note">Test Text</p>
+                        <div class="action-buttons-container">
+                                <button class="complete-button action-button" index="0">Complete</button>
+                                <button class="delete-button action-button" index="0">Delete</button>
                             </div>
                         </div>
                     </li>
