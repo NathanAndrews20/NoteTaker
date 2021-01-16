@@ -2,6 +2,9 @@ import LinkedList from "./LinkedList.js";
 
 const liLinkedList = new LinkedList();
 
+loadListItemsFromStorage();
+renderList();
+
 document.getElementById('add-button').addEventListener('click', (event) => {
     
     if(document.getElementById('textarea').value === '') { return; }
@@ -13,6 +16,9 @@ document.getElementById('add-button').addEventListener('click', (event) => {
     const listItem = createListItem(dateString,noteString);
     liLinkedList.add(listItem);
     renderList();
+
+    const listItemData = `${dateString},${noteString}`
+    localStorage.setItem(`${getIndex(listItem)}`,listItemData);
 });
 
 document.getElementById('list').addEventListener('click', event => {
@@ -60,6 +66,24 @@ function createListItem(dateString, noteString){
 
 function getIndex(listItem){
     return listItem.getAttribute('index');
+}
+
+function getDate(listItem){
+    return listItem.children[0].innerText;
+}
+
+function getNote(listItem){
+    return listItem.children[1].innerText;
+}
+
+function loadListItemsFromStorage(){
+    for(let index = 0; index<localStorage.length; index++){
+        let dateString, noteString;
+        [dateString,noteString] = localStorage.getItem(index).split(",");
+        
+        const listItem = createListItem(dateString,noteString);
+        liLinkedList.add(listItem);
+    }
 }
 
 function renderList(){
