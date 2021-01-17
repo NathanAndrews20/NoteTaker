@@ -1,11 +1,11 @@
 import LinkedList from "./LinkedList.js";
 
-const liLinkedList = new LinkedList();
+const listItemLinkedList = new LinkedList();
 
 loadListItemsFromStorage();
 renderList();
 
-document.getElementById('add-button').addEventListener('click', (event) => {
+document.getElementById('add-button').addEventListener('click', () => {
     
     if(document.getElementById('textarea').value === '') { return; }
 
@@ -14,7 +14,7 @@ document.getElementById('add-button').addEventListener('click', (event) => {
     const noteString = document.getElementById('textarea').value;
 
     const listItem = createListItem(dateString,noteString);
-    liLinkedList.add(listItem);
+    listItemLinkedList.add(listItem);
     renderList();
 
     const listItemData = [dateString,noteString];
@@ -23,10 +23,10 @@ document.getElementById('add-button').addEventListener('click', (event) => {
 
 document.getElementById('list').addEventListener('click', event => {
     const selection = event.target;
-    if(selection.className === 'delete-button action-button'){
+    if(selection.className === 'delete-button'){
         const index = parseInt(selection.getAttribute('index'));
         localStorage.removeItem(index);
-        const deletedListItem = liLinkedList.remove(index);
+        listItemLinkedList.remove(index);
         resetIndicies();
         renderList();
     }
@@ -35,7 +35,7 @@ document.getElementById('list').addEventListener('click', event => {
 function createListItem(dateString, noteString){
     const listItem = document.createElement('li');
     listItem.className = 'list-item';
-    listItem.setAttribute('index',`${liLinkedList.size()}`)
+    listItem.setAttribute('index',`${listItemLinkedList.size()}`)
     
     const notePElement = document.createElement('p');
     notePElement.className = 'note';
@@ -44,22 +44,17 @@ function createListItem(dateString, noteString){
     const datePElement = document.createElement('p');
     datePElement.className = 'date';
     datePElement.innerHTML = dateString;
-  
-    const completeButton = document.createElement('button');
-    completeButton.className = 'complete-button action-button';
-    completeButton.setAttribute('index',`${liLinkedList.size()}`);
-    completeButton.innerHTML = 'Complete';
 
     const deleteButton = document.createElement('button');
-    deleteButton.className = 'delete-button action-button';
-    deleteButton.setAttribute('index',`${liLinkedList.size()}`);
+    deleteButton.className = 'delete-button';
+    deleteButton.setAttribute('index',`${listItemLinkedList.size()}`);
     deleteButton.innerHTML = 'Delete';
 
-    const actionButtonsContainerDiv = document.createElement('div');
-    actionButtonsContainerDiv.className = 'action-buttons-container';
-    actionButtonsContainerDiv.append(completeButton,deleteButton);
+    const deleteButtonDiv = document.createElement('div');
+    deleteButtonDiv.className = 'delete-button-container';
+    deleteButtonDiv.append(deleteButton);
     
-    listItem.append(datePElement,notePElement,actionButtonsContainerDiv);
+    listItem.append(datePElement,notePElement,deleteButtonDiv);
     listItem.id = 'list-item';
     
     return listItem;
@@ -86,7 +81,7 @@ function loadListItemsFromStorage(){
         [dateString,noteString] = JSON.parse(listItemData)
         
         const listItem = createListItem(dateString,noteString);
-        liLinkedList.add(listItem);
+        listItemLinkedList.add(listItem);
     }
 }
 
@@ -95,7 +90,7 @@ function renderList(){
     
     removeAllChildNodes(listDomElement);
 
-    liLinkedList.forEach(elem =>{
+    listItemLinkedList.forEach(elem =>{
         listDomElement.append(elem);
     });
 }
@@ -107,15 +102,13 @@ function removeAllChildNodes(parent) {
 }
 
 function resetIndicies(){
-    const listDomElement = document.getElementById('list');
     localStorage.clear();
 
     let index = 0;
     
-    liLinkedList.forEach(listItem =>{
+    listItemLinkedList.forEach(listItem =>{
         listItem.setAttribute('index',`${index}`);
         listItem.children[2].children[0].setAttribute('index',`${index}`);
-        listItem.children[2].children[1].setAttribute('index',`${index}`);
         const listItemData = `${getDate(listItem)},${getNote(listItem)}`;
         localStorage.setItem(index,listItemData);
         index++;

@@ -93,7 +93,7 @@ html{
     white-space: pre-wrap;
 }
 
-.action-buttons-container{
+.delete-button-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -102,21 +102,14 @@ html{
     margin-left: 10px;
 }
 
-.action-button{
-    height: 30px;
+.delete-button{
+    height: 32px;
     width: 100%;
     border: none;
     border-radius: 10px;
     
+    font-size: 16px;
     font-weight: bold;
-}
 
-.complete-button{
-    margin-bottom: 3px;
-    
-    background-color: rgb(125, 125, 255);
-}
-
-.delete-button{
     background-color: rgb(255, 125, 125);
 }
