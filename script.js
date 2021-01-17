@@ -17,8 +17,8 @@ document.getElementById('add-button').addEventListener('click', (event) => {
     liLinkedList.add(listItem);
     renderList();
 
-    const listItemData = `${dateString},${noteString}`
-    localStorage.setItem(`${getIndex(listItem)}`,listItemData);
+    const listItemData = [dateString,noteString];
+    localStorage.setItem(`${getIndex(listItem)}`,JSON.stringify(listItemData));
 });
 
 document.getElementById('list').addEventListener('click', event => {
@@ -81,8 +81,9 @@ function loadListItemsFromStorage(){
     if(localStorage.length === 0) { return; }
 
     for(let index = 0; index<localStorage.length; index++){
-        let dateString, noteString;
-        [dateString,noteString] = localStorage.getItem(index).split(",");
+        let dateString, noteString, listItemData;
+        listItemData = localStorage.getItem(index);
+        [dateString,noteString] = JSON.parse(listItemData)
         
         const listItem = createListItem(dateString,noteString);
         liLinkedList.add(listItem);
