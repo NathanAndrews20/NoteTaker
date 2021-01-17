@@ -9,4 +9,5 @@ Note Taking Program
 
 What I Learned
 --------------
-* Implemented the ```linkedlist``` data structure
+* Implemented the ```Linked List``` data structure manage list items
+* Used ```localStorage``` to make notes persistent across sessions
