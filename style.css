@@ -15,8 +15,10 @@ html{
 }
 
 #textarea{
-    height: 50px;
+    min-height: 50px;
     width: 100%;
+    min-width: 100%;
+    max-width: 100%;
 
     border: 2px black solid;
 }
