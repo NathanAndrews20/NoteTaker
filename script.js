@@ -18,7 +18,7 @@ document.getElementById('add-button').addEventListener('click', () => {
     renderList();
 
     const listItemData = {date: dateString, note: noteString};
-    localStorage.setItem(`${getIndex(listItem)}`,JSON.stringify(listItemData));
+    localStorage.setItem(`NoteTaker:${getIndex(listItem)}`,JSON.stringify(listItemData));
 });
 
 document.getElementById('list').addEventListener('click', event => {
@@ -73,16 +73,18 @@ function getNote(listItem){
 }
 
 function loadListItemsFromStorage(){
-    const numNoteStores = localStorage.length;
-    if(numNoteStores === 0) { return; }
+    if(!localStorage.getItem("NoteTaker:0")) { return; }
 
-    for(let index = 0; index<numNoteStores; index++){
-        const listItemData = JSON.parse(localStorage.getItem(index));
+    let index = 0;
+    
+    while(localStorage.getItem(`NoteTaker${index}`)){
+        const listItemData = JSON.parse(localStorage.getItem(`NoteTaker${index}`));
         const dateString = listItemData.date;
         const noteString = listItemData.note;
         
         const listItem = createListItem(dateString,noteString);
         listItemLinkedList.add(listItem);
+        index++;
     }
 }
 
@@ -111,7 +113,7 @@ function resetIndicies(){
         listItem.setAttribute('index',`${index}`);
         listItem.children[2].children[0].setAttribute('index',`${index}`);
         const listItemData = `${getDate(listItem)},${getNote(listItem)}`;
-        localStorage.setItem(index,listItemData);
+        localStorage.setItem(`NoteTaker:${index}`,listItemData);
         index++;
     });
 }
