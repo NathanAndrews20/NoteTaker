@@ -17,7 +17,7 @@ document.getElementById('add-button').addEventListener('click', () => {
     listItemLinkedList.add(listItem);
     renderList();
 
-    const listItemData = [dateString,noteString];
+    const listItemData = {date: dateString, note: noteString};
     localStorage.setItem(`${getIndex(listItem)}`,JSON.stringify(listItemData));
 });
 
@@ -73,12 +73,13 @@ function getNote(listItem){
 }
 
 function loadListItemsFromStorage(){
-    if(localStorage.length === 0) { return; }
+    const numNoteStores = localStorage.length;
+    if(numNoteStores === 0) { return; }
 
-    for(let index = 0; index<localStorage.length; index++){
-        let dateString, noteString, listItemData;
-        listItemData = localStorage.getItem(index);
-        [dateString,noteString] = JSON.parse(listItemData)
+    for(let index = 0; index<numNoteStores; index++){
+        const listItemData = JSON.parse(localStorage.getItem(index));
+        const dateString = listItemData.date;
+        const noteString = listItemData.note;
         
         const listItem = createListItem(dateString,noteString);
         listItemLinkedList.add(listItem);
