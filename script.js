@@ -73,12 +73,10 @@ function getNote(listItem){
 }
 
 function loadListItemsFromStorage(){
-    if(!localStorage.getItem("NoteTaker:0")) { return; }
-
     let index = 0;
     
-    while(localStorage.getItem(`NoteTaker${index}`)){
-        const listItemData = JSON.parse(localStorage.getItem(`NoteTaker${index}`));
+    while(localStorage.getItem(`NoteTaker:${index}`)){
+        const listItemData = JSON.parse(localStorage.getItem(`NoteTaker:${index}`));
         const dateString = listItemData.date;
         const noteString = listItemData.note;
         
